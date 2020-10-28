@@ -100,7 +100,7 @@ ANSWER:
     WHERE C.City = 'Paris' AND O.ShippedDate - O.RequiredDate > 10;
     ```
 
-ANSWER: There were no late deliveries.
+ANSWER: There were no late deliveries for Paris clients. There were some overdue deliveries made however.
 
 - ```sql
     SELECT COUNT(O.OrderID) AS 'No. of overdue deliveries', C.CompanyName, C.ContactName, C.Phone, C.Fax
