@@ -101,3 +101,13 @@ ANSWER:
     ```
 
 ANSWER: There were no late deliveries.
+
+- ```sql
+    SELECT COUNT(O.OrderID) AS 'No. of overdue deliveries', C.CompanyName, C.ContactName, C.Phone, C.Fax
+    FROM Orders O
+    INNER JOIN Customers C ON O.CustomerID = C.CustomerID
+    WHERE O.ShippedDate - O.RequiredDate > 10
+    GROUP BY C.CompanyName, C.ContactName, C.Phone, C.Fax
+    ORDER BY COUNT(O.OrderID) DESC;
+    ```
+    ![](images/q8.png)
