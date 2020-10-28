@@ -29,6 +29,7 @@
 
 - ```sql
     SELECT CompanyName FROM Customers WHERE CompanyName LIKE '%Z%' OR CompanyName LIKE '%z%';
+    -- This works without the OR statement since operators aren't case-sensitive in Azure Data Studios
     ```
     ![](images/a0.png)
     
@@ -57,9 +58,9 @@
 - ```sql
     SELECT SUM("Order Details".Quantity) AS 'Total Quantity ordered', Customers.CompanyName
     FROM Orders
-    RIGHT JOIN Customers ON Orders.CustomerID = Customers.CustomerID
-    -- I RJ here because I want to see the Paris specialites even if they have no orders
     RIGHT JOIN "Order Details" ON Orders.OrderID = "Order Details".OrderID
+    RIGHT JOIN Customers ON Orders.CustomerID = Customers.CustomerID
+    -- I RJ here because I want to see Paris specialites' quantity ordered even if they have no orders
     WHERE Customers.City = 'Paris'
     GROUP BY Customers.CompanyName;
     ```
@@ -93,5 +94,10 @@ ANSWER:
     Display the company name, contact name, all contact details, and the number of deliveries that took more than 10 days
 
 - ```sql
-    SELECT 
+    SELECT O.OrderID, C.CompanyName, C.ContactName, C.Phone, C.Fax
+    FROM Orders O
+    INNER JOIN Customers C ON O.CustomerID = C.CustomerID
+    WHERE C.City = 'Paris' AND O.ShippedDate - O.RequiredDate > 10;
     ```
+
+ANSWER: There were no late deliveries.
