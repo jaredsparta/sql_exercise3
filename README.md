@@ -73,12 +73,12 @@ ANSWER: Spécialités du monde has ordered the most by quantity.
 ## 7 b) Who are our top 5 clients (by quantity)?
 
 - ```sql
-    SELECT TOP 5 COUNT("Order Details".Quantity) AS 'Total quantity ordered', Customers.CompanyName
+    SELECT TOP 5 SUM("Order Details".Quantity) AS 'Total quantity ordered', Customers.CompanyName
     FROM Orders
     INNER JOIN "Order Details" ON "Order Details".OrderID = Orders.OrderID
     INNER JOIN Customers ON Customers.CustomerID = Orders.CustomerID
     GROUP BY Customers.CompanyName
-    ORDER BY COUNT("Order Details".Quantity) DESC;
+    ORDER BY SUM("Order Details".Quantity) DESC;
     ```
 
     ![](images/q7_2.png)
